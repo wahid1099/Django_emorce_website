@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib import messages,auth
 from .forms import UserForm
 from .models import User,UserProfile
+from .utils import detectUser,send_email,send_notification
 # Create your views here.
 def registerUser(request):
     if request.user.is_authenticated:
@@ -21,6 +22,25 @@ def registerUser(request):
             user.save()
             email_subject = "Please active your account"
             email_template ="accounts/emails/account_varification.html"
+            send_email(request,user,email_subject,email_template)
+            messages.success(request,'Your account has been registered successfully,Please check your mail for confirmation')
+            return redirect('home')
+        else:
+            messages.error(request,'Invalid data input')
+    else:
+        form=UserForm()
+    
+    context = {
+        'form': form,
+    }
+    return render(request,'accounts/RegiserUser.html',context)
+
+
+
+def registerSeller(request):
+    
+    
+
             
 
             
