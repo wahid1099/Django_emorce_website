@@ -22,11 +22,12 @@ class UserManager(BaseUserManager):
         return user
     
 
-    def create_superuser(self,full_name,username,email,password=None):
+    def create_superuser(self,first_name,last_name,username,email,password=None):
         user=self.create_user(
             email=self.normalize_email(email),
             username=username,
-            first_name=full_name,
+            first_name=first_name,
+            last_name=last_name,
             password = password
         )
          
@@ -64,7 +65,7 @@ class User(AbstractBaseUser):
     is_superuser=models.BooleanField(default=False)
 
     USERNAME_FIELD='email'
-    REQUIRED_FIELDS=['username', 'first_name']
+    REQUIRED_FIELDS=['username', 'first_name','last_name']
     object=UserManager()
     def __str__(self):
         return self.email

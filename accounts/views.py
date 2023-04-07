@@ -111,7 +111,7 @@ def login(request):
         else:
             messages.error(request,'Invalid login credentials')
             return redirect('login')
-        return redirect(request,'accounts/login.html')
+    return redirect(request,'accounts/login.html')
         
     
 
@@ -130,13 +130,68 @@ def myaccounts(request):
     redirectUrl=detectUser(user)
     return redirect(redirectUrl)
             
-    
-
-
-
+@login_required(login_url=login)
 def customerDashboard(request):
     return render(request,'accounts/customerDashboard.html')
 
-
+@login_required(login_url=login)
 def sellerDashboard(request):
     return render(request,'accounts/sellerDashboard.html')
+
+
+def forgot_password(request):
+    if request.method == 'POST':
+        email=request.POST['email']
+        if User.objects.filter(email=email).exists():
+            user=User.objects.filter(email__exact=email)
+            email_subject="Reset Your password"
+            email_templates="accounts/emails/reset_password.html"
+            send_email(request,user,email_subject,email_templates)
+            messages.success(request,'Password Reset Link Has been sent to your email address')
+            return redirect('login')
+        else:
+            messages.error(request,"Account doesn't exists")
+            return redirect('forgot_password')
+    return redirect(request,'accounts/forgot_password.html')
+
+
+def reset_password_validation(request,uidb64,token):
+    try:
+        uid=urlsafe_base64_decode(uidb64).decode()
+        user=User._default_manager.get(pk=uid)
+    except(TypeError,ValueError,OverflowError,User.DoesNotExist):
+        user=None
+    
+    if user  is not None and default_token_generator.check_token(user,token):
+        request.session['uid']=uid
+        messages.info(request,'Please reset your password')
+        return redirect('reset_password')
+    else:
+        messages.error(request,'Link expired')
+        return redirect('myaccount')
+    
+def reset_password(request):
+    if request.method == 'POST':
+        password=request.POST['password']
+        confirm_password=request.POST['confirm_password']
+        if password==confirm_password:
+            pk=request.session.get('uid')
+            user=User.objects.get(pk=pk)
+            user.set_password(password)
+            user.is_active=True
+            user.save()
+            messages.success(request,'Password changed successfully!!')
+            return redirect('login')
+        else:
+            messages.error(request,'Password not matched')
+            return redirect('reset_password')
+    return render(request,'accounts/reset_password.html')
+
+
+
+
+
+
+
+
+

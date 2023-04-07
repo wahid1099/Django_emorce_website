@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'home'
+    'home',
+    'seller'
 ]
 
 MIDDLEWARE = [
@@ -157,7 +158,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 
 
-# AUTH_USER_MODEL = 'account.NewUser'
+AUTH_USER_MODEL = 'accounts.User'
 # # Authentication backends
 # AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
 
