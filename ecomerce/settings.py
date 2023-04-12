@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'home',
-    'seller'
+    'seller',
+    'dashboard',
+    'products'
 ]
 
 MIDDLEWARE = [
@@ -124,13 +127,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
 USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)
@@ -139,7 +143,6 @@ USE_TZ = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR/'static'
 STATICFILES_DIRS = [
@@ -153,6 +156,8 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 
 
@@ -162,9 +167,18 @@ AUTH_USER_MODEL = 'accounts.User'
 # # Authentication backends
 # AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST='smtp.gmail.com'
+# EMAIL_PORT=587
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TLS=True
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST='smtp.gmail.com'
-EMAIL_PORT=587
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS=True
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+DEFAULT_FROM_EMAIL = 'Ecommerce <mw0641295@gmail.com>'

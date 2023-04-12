@@ -30,6 +30,13 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{%static 'css/style.css'%}" rel="stylesheet" />
+
+
+<!-- CSS alertify -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+
     
   </head>
 
@@ -37,8 +44,19 @@
     <div>
       {%include 'include/header.html' %}
        {% block content %}
-        {% endblock content%} {%include 'include/footer.html' %}
+        {% endblock content%} 
+        
+        {%include 'include/footer.html' %}
     </div>
+
+
+      <!-- alertify -->
+      <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+      {%block scripts%}
+
+      {%endblock scripts%}
+      
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

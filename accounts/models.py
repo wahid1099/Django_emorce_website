@@ -57,8 +57,8 @@ class User(AbstractBaseUser):
     username=models.CharField(max_length=50)
     phone_number=models.CharField(max_length=14,blank=True,null=True)
     role=models.PositiveSmallIntegerField(choices=ROLE_CHOICE,blank=True,null=True)
-    date_joined=models.DateField(auto_now_add=True)
-    last_login=models.DateField(auto_now=True)
+    date_joined=models.DateTimeField(auto_now_add=True)
+    last_login=models.DateTimeField(auto_now=True)
     is_admin=models.BooleanField(default=False)
     is_active=models.BooleanField(default=False)
     is_staff=models.BooleanField(default=False)
@@ -66,7 +66,7 @@ class User(AbstractBaseUser):
 
     USERNAME_FIELD='email'
     REQUIRED_FIELDS=['username', 'first_name','last_name']
-    object=UserManager()
+    objects=UserManager()
     def __str__(self):
         return self.email
     def has_perm(self,perm,obj=None):

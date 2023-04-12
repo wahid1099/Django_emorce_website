@@ -1,22 +1,97 @@
+{%load static%}
+
 <!DOCTYPE html>
 <!-- Created By CodingLab - www.codinglabweb.com -->
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-   <!----<title>Login Form Design | CodeLab</title>---->
-    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8" />
+    <title>MultiShop - Online Shop Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Free HTML Templates" name="keywords" />
+    <meta content="Free HTML Templates" name="description" />
+
+    <!-- Favicon -->
+    <link href="{%static 'img/favicon.ico'%}" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link href="{%static 'lib/animate/animate.min.css'%}" rel="stylesheet" />
+    <link href="{%static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{%static 'css/style.css'%}" rel="stylesheet" />
+    
+    <link href="{%static 'css/accounts.css'%}" rel="stylesheet" />
   </head>
   <body>
+    {%include 'include/header.html' %}
     <div class="wrapper">
-      <div class="title">Login Form</div>
-      <form action="#">
+      <div class="title">Registration Form For Seller</div>
+      <form 
+      method="POST"  
+      action="{%url 'registerSeller'%}">
+        {%csrf_token%}
         <div class="field">
-          <input type="text" required>
-          <label>Email Address</label>
+          {{form.first_name}}
+          <label>First Name</label>
         </div>
         <div class="field">
-          <input type="password" required>
+          
+          {{form.last_name}}
+          <label>Last Name</label>
+        </div>
+
+        <div class="field">
+          
+          {{seller_form.shop_name}}
+          <label>Shop  Name</label>
+        </div>
+
+
+        <div class="field">
+          
+        
+          {{seller_form.shop_license}}
+          <br/>
+          <label>Shop License</label>
+        
+        </div>
+
+        <div class="field">
+          {{form.username}}
+          <label> Username</label>
+        </div>
+        <div class="field">
+          {{form.email}}
+          <label>Email Address</label>
+        </div>
+
+        <div class="field">
+          {{form.password}}
           <label>Password</label>
+        </div>
+
+
+        <div class="field">
+          {{form.confirm_password}}
+          <label>Confirm Password</label>
+        </div>
+
+        <div class="field">
+          {{form.phone_number}}
+          <label>Phone No</label>
         </div>
         <div class="content">
           <div class="checkbox">
@@ -26,10 +101,48 @@
           <div class="pass-link"><a href="#">Forgot password?</a></div>
         </div>
         <div class="field">
-          <input type="submit" value="Login">
+          <input type="submit" value="Signup">
         </div>
-        <div class="signup-link">Not a member? <a href="#">Signup now</a></div>
+        <div class="signup-link">Already member? <a href="{%url 'login'%}">SignIn now</a></div>
+        <div class="signup-link">Are you a seller? <a href="{%url 'registerSeller'%}">SignUp as seller now</a></div>
       </form>
+
+      <ul class="errorlist">
+                                                    
+        {% for field in forms %}
+        
+        {% if field.errors %}
+        
+        {% for error in field.errors %}
+        <li style="color:red;">{{error}}</li>
+        
+        {% endfor %}
+        
+        
+        {% endif %}
+        
+        
+        {% endfor %}
+
+        <li style="color:red;">{{form.non_field_errors}}</li>
+            
+
+        </ul>
     </div>
+     <!-- JavaScript Libraries -->
+     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+     <script src="{%static 'lib/easing/easing.min.js'%}"></script>
+     <script src="{%static 'lib/owlcarousel/owl.carousel.min.js'%}"></script>
+ 
+     <!-- Contact Javascript File -->
+     <script src="{%static 'mail/jqBootstrapValidation.min.js'%}"></script>
+     <script src="{%static 'mail/contact.js'%}"></script>
+ 
+     <!-- Template Javascript -->
+     <script src="{%static 'js/main.js'%}"></script>
   </body>
 </html>
+
+
+{%include 'include/footer.html' %}

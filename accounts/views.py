@@ -36,6 +36,7 @@ def registerUser(request):
     
     context = {
         'form': form,
+        
     }
     return render(request,'accounts/RegiserUser.html',context)
 
@@ -111,7 +112,7 @@ def login(request):
         else:
             messages.error(request,'Invalid login credentials')
             return redirect('login')
-    return redirect(request,'accounts/login.html')
+    return render(request,'accounts/login.html')
         
     
 
@@ -143,16 +144,16 @@ def forgot_password(request):
     if request.method == 'POST':
         email=request.POST['email']
         if User.objects.filter(email=email).exists():
-            user=User.objects.filter(email__exact=email)
+            user=User.objects.get(email__exact=email)
             email_subject="Reset Your password"
-            email_templates="accounts/emails/reset_password.html"
-            send_email(request,user,email_subject,email_templates)
+            email_template="accounts/emails/reset_password.html"
+            send_email(request,user,email_subject,email_template)
             messages.success(request,'Password Reset Link Has been sent to your email address')
             return redirect('login')
         else:
             messages.error(request,"Account doesn't exists")
             return redirect('forgot_password')
-    return redirect(request,'accounts/forgot_password.html')
+    return render(request,'accounts/forgot_password.html')
 
 
 def reset_password_validation(request,uidb64,token):
