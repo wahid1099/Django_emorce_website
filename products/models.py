@@ -68,3 +68,5 @@ class ProductImage(models.Model):
     updated_at=models.DateTimeField(auto_now=True)
     product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name="product_images")
     image=models.ImageField(upload_to="product")
+
+

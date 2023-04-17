@@ -43,6 +43,6 @@ def send_notification(email_subject, email_template,context):
         email_template,context
     )
     to_email=context['user'].email
-    mail=EmailMessage(email_subject,messages,from_email,tp=[to_email])
+    mail=EmailMessage(email_subject,messages,from_email,to=[to_email])
     mail.send()
 

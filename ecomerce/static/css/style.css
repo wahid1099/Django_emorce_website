@@ -10123,3 +10123,16 @@ h6 {
     transform: translateY(-15px);
   }
 }
+
+.order_container {
+  text-align: center; /* horizontally center the image */
+  line-height: 200px; /* vertically center the image */
+}
+
+.order_container img {
+  display: inline-block; /* allows the container to center the image */
+  vertical-align: middle;
+  /* vertically center the image */
+  max-width: 50%;
+  height: auto;
+}

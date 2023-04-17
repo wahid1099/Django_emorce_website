@@ -27,12 +27,5 @@ def get_product(request , slug):
 #     except Exception as e:
 #        messages.error(request, e)
 
-def checkout_product(request, slug):
-    # retrieve the product with the given slug from the database
-    product = Product.objects.get(slug=slug)
-    
-    # do some processing
-    
-    # return an HTTP response
-    return render(request, 'product/Checkout.html', {'product': product})
+
     

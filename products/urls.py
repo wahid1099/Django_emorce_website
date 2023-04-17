@@ -5,8 +5,7 @@ from . import views
 urlpatterns=[
    
 
-    path("<slug>/", views.get_product,name="get_product"),
-    path("checkout/<slug>/", views.checkout_product,name="checkout_product")
+    path("<slug>/", views.get_product,name="get_product")
     
     
 

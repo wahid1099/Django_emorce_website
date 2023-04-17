@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'home',
     'seller',
     'dashboard',
-    'products'
+    'products',
+    'order',
+    'payment'
 ]
 
 MIDDLEWARE = [
@@ -182,3 +184,11 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 DEFAULT_FROM_EMAIL = 'Ecommerce <mw0641295@gmail.com>'
+
+
+
+
+
+# sslzcomerze
+SSLCOMMERZ_STORE_ID =config('SSLCOMMERZ_STORE_ID')
+SSLCOMMERZ_STORE_PASSWD = config('SSLCOMMERZ_STORE_PASSWD')

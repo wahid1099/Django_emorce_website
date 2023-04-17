@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+
+
+{%load static%}
+
+{% block content %}
+
+
+
+<div class="order_container">
+  <img src="{%static 'img/orderplaced.jpg'%}" />
+<h5 class="text-center">Please Recieve the package and pay the ammount money on delivery day.</h5>
+
+</div>
+
+
+    
+{% endblock content %}
+
+{%block scripts%}
+
+{% for msg in messages %}
+<script>   
+
+
+
+  alertify.set('notifier','position', 'top-right');
+  alertify.message('{{msg}}');
+  </script>
+{%endfor%}
+
+{%endblock scripts%}
+
