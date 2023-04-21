@@ -10,3 +10,8 @@ from .models import Payment
 def payment(request):
     # mypayment = SSLCSession(sslc_is_sandbox=True, sslc_store_id=store_id, sslc_store_pass=API_KEY)
     pass
+
+
+def paypal(request):
+
+    return render(request,'payment/paypal.html')

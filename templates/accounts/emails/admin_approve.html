@@ -1,0 +1,14 @@
+
+
+{% autoescape off %}
+
+Hi {{user.first_name}},
+
+{% if status %}
+    Congratulations! Your Order has been approved by admin
+    {% else %}
+    Sorry! We couldn't approve your Order
+{% endif %}
+    
+    
+{% endautoescape %}

@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from django.utils.text import slugify
+from accounts.models import *
  
 # Create your models here.
 
@@ -70,3 +71,14 @@ class ProductImage(models.Model):
     image=models.ImageField(upload_to="product")
 
 
+
+class Review(models.Model):
+    author_name = models.CharField(max_length=255)
+    review_body = models.TextField()
+    rating = models.IntegerField()
+    date_created = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.author_name

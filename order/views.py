@@ -32,7 +32,7 @@ def place_order(request,slug):
         price=product.price
         user=request.user
         userprofile=User.objects.get(email=user.email)
-
+        print("Payment method",payment_method)
         if payment_method=='cash':
              order=Order(
                   
@@ -53,12 +53,8 @@ def place_order(request,slug):
              order_confirmation_mail(request,userprofile)
              messages.success(request, "Order Placed Sucessfully")
              return render(request,'product/Orderplaced.html')
-
-       
-     #    print(
-           
-     #        city,name,phone_no,adress,state,zipcode,payment_method,user,price,userprofile,product
-     #    )
+        elif payment_method=='paypal':
+              return render(request,'payment/paypal.html')
         
         return redirect('home')
 

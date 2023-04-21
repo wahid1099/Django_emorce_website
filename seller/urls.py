@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     
-     path("paypal/", views.paypal,name="paypal")
+     path("registerUser/", views.registerUser,name="registerUser"),
 
       
    

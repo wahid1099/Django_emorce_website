@@ -3,7 +3,7 @@ from django.db import models
 from products.models import *
 from accounts.models import *
 # Create your models here.
-
+from accounts.utils import*
 
 
 
@@ -38,6 +38,27 @@ class Order(models.Model):
     def __str__(self):
         return self.user.username
     
+    def save(self, *args, **kwargs):
+        if self.pk is not None:
+            orginal = Order.objects.get(pk=self.pk)
+            if orginal.status != self.status:
+                email_subject = "Congratulation! Your Order is confirmed"
+                email_template = "accounts/emails/admin_approve.html"
+                context={
+                    'user': self.user,
+                    'status':self.status
+                }
+                send_notification(email_subject,email_template,context)
+                ...
+            else:
+                email_subject = "We are sorry! We couldn't accept order."
+                email_template = "accounts/emails/admin_approve.html"
+                context={
+                    'user': self.user,
+                    'status':self.status
+                }
+                send_notification(email_subject,email_template,context)
+        return super(Order,self).save(*args, **kwargs)
 
     
 
