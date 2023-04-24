@@ -1,0 +1,89 @@
+{% extends 'base.html'%}
+
+
+{%load static%}
+
+
+{% block content %}
+
+<div class="col-lg-4 col-6 text-left">
+    <form action="{% url 'search_product' %}" method='get'>
+     
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for products" id="search_query" name="search_query" required>
+            <div class="input-group-append">
+               
+                    <button type="submit" class="btn btn-primary"> <i class="fa fa-search"></i>Search</button>
+
+                   
+              
+            </div>
+        </div>
+    </form>
+</div>
+    
+<div class="container-fluid pt-5 pb-3">
+    {%if products%}
+
+   
+    <div class="row px-xl-5">
+       {%for p in products %}
+      
+
+       <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+        <div class="product-item bg-light mb-4">
+            <div class="product-img position-relative overflow-hidden">
+                <img class="img-fluid w-100" src="{{ p.product_images.first.image.url}}" alt="">
+                <div class="product-action">
+                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                    <a class="btn btn-outline-dark btn-square" ><i class="far fa-heart"></i></a>
+                   
+
+                    
+                </div>
+            </div>
+            <div class="text-center py-4">
+                <a class="h6 text-decoration-none text-truncate" href="">{{p.product_name}}</a>
+                <div class="d-flex align-items-center justify-content-center mt-2">
+                    <h5>${{p.price}}.00</h5><h6 class="text-muted ml-2"><del>$.00</del></h6>
+                    
+                </div>
+                <h5><a href="{% url 'get_product' p.slug %}" >View Details</a></h6>
+                <div class="d-flex align-items-center justify-content-center mb-1">
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small class="fa fa-star text-primary mr-1"></small>
+                    <small>(99)</small>
+                </div>
+            </div>
+        </div>
+      
+        </div>
+        {%endfor%}
+       
+    </div>
+    {%else%}
+    <h2>No product found</h2>
+    {%endif%}
+</div>
+<!-- Products End -->
+
+    
+{% endblock content %}
+
+{%block scripts%}
+
+{% for msg in messages %}
+<script>   
+
+
+
+  alertify.set('notifier','position', 'top-right');
+  alertify.message('{{msg}}');
+  </script>
+{%endfor%}
+
+{%endblock scripts%}
+

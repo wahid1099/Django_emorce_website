@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.urls import reverse
 from uuid import UUID
 from products.models import *
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 @login_required(login_url=login)
 def get_product(request , slug):
@@ -72,11 +74,34 @@ def addReview(request,product_id):
 
 
 
-def allproducts(reqest):
-    products = Product.objects.all()
+def allproducts(request):
+    product_list = Product.objects.all()
+    page_number = request.GET.get('page',1)
+    paginator = Paginator(product_list, 10)
+    try:
+        products = paginator.page(page_number)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+    
+    
+
     context={
         'products':products,
 
     }
 
-    return render(reqest, 'product/Allproducts.html',context)
+    return render(request, 'product/Allproducts.html',context)
+
+
+
+
+def search_view(request):
+    search_query = request.GET.get('search_query') or None
+    products = Product.objects.filter(product_name__icontains=search_query)
+    print("all prodct",products)
+    context = {
+        'products':products
+    }
+    return render(request, 'product/search_results.html', context)

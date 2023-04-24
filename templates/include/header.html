@@ -82,13 +82,16 @@
                 </a>
             </div>
             <div class="col-lg-4 col-6 text-left">
-                <form action="">
+                <form action="{% url 'search_product' %}" method='get'>
+                 
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products">
+                        <input type="text" class="form-control" placeholder="Search for products" id="search_query" name="search_query" required>
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
-                                <i class="fa fa-search"></i>
-                            </span>
+                           
+                                <button type="submit" class="btn btn-primary"> <i class="fa fa-search"></i>Search</button>
+
+                               
+                          
                         </div>
                     </div>
                 </form>
